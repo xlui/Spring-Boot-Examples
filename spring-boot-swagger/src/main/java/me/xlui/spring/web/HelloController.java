@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Controller
 @Api(value = "Hello World", description = "The first swagger base api!")
@@ -21,5 +22,12 @@ public class HelloController {
 	@ApiImplicitParam(name = "name", value = "用户名", required = true, dataType = "String", example = "xlui")
 	public String index(String name) {
 		return "Hello " + name;
+	}
+
+	@RequestMapping("/t")
+	@ResponseBody
+	@ApiIgnore
+	public String t() {
+		return "Test ApiIgnore";
 	}
 }
