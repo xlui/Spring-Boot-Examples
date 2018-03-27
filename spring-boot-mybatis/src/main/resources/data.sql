@@ -1,0 +1,10 @@
+use test;
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id`        INT NOT NULL AUTO_INCREMENT,
+  `username`  VARCHAR(32)  DEFAULT NULL,
+  `password`  VARCHAR(32)  DEFAULT NULL,
+  `user_sex`  VARCHAR(32)  DEFAULT NULL,
+  `nick_name` VARCHAR(32)  DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
