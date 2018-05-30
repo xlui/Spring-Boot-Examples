@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-	Article findArticleById(Long id);
+    Article findArticleById(Long id);
 
-	List<Article> findArticleBySort(Sort sort);
+    List<Article> findArticleBySort(Sort sort);
 
 //	基于注解的查询
 //	@Query("select a from t_article a where a.id=?1")

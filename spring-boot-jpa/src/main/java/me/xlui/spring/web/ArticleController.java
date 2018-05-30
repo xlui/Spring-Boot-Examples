@@ -13,23 +13,23 @@ import java.util.List;
 
 @RestController
 public class ArticleController {
-	@Autowired
-	ArticleRepository articleRepository;
+    @Autowired
+    ArticleRepository articleRepository;
 
-	@RequestMapping(value = {"/", "/all", "/articles"})
-	public List<Article> all() {
-		return articleRepository.findAll();
-	}
+    @RequestMapping(value = {"/", "/all", "/articles"})
+    public List<Article> all() {
+        return articleRepository.findAll();
+    }
 
-	@RequestMapping("/article")
-	public Article article(Long id) {
-		return articleRepository.findArticleById(id);
-	}
+    @RequestMapping("/article")
+    public Article article(Long id) {
+        return articleRepository.findArticleById(id);
+    }
 
-	@RequestMapping("/bySort")
-	public List<Article> sort(Long id, String sortName) {
-		return articleRepository.findArticleBySort(new Sort(id, sortName));
-	}
+    @RequestMapping("/bySort")
+    public List<Article> sort(Long id, String sortName) {
+        return articleRepository.findArticleBySort(new Sort(id, sortName));
+    }
 
 //	@RequestMapping("/q3")
 //	public Article q3(Long id) {
@@ -41,13 +41,13 @@ public class ArticleController {
 //		return articleRepository.findArticleUsingQueryParam(id);
 //	}
 
-	@RequestMapping("/sort")
-	public List<Article> sort() {
-		return articleRepository.findAll(new org.springframework.data.domain.Sort(org.springframework.data.domain.Sort.Direction.DESC, "id"));
-	}
+    @RequestMapping("/sort")
+    public List<Article> sort() {
+        return articleRepository.findAll(new org.springframework.data.domain.Sort(org.springframework.data.domain.Sort.Direction.DESC, "id"));
+    }
 
-	@RequestMapping("/page")
-	public Page<Article> page() {
-		return articleRepository.findAll(new PageRequest(1, 2));
-	}
+    @RequestMapping("/page")
+    public Page<Article> page() {
+        return articleRepository.findAll(new PageRequest(1, 2));
+    }
 }

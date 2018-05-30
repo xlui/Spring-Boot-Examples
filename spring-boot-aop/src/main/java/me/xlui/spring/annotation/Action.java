@@ -1,4 +1,4 @@
-package me.xlui.spring.interceptor;
+package me.xlui.spring.annotation;
 
 import java.lang.annotation.*;
 
@@ -8,6 +8,6 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface HelloAction {
+public @interface Action {
 	String name();
 }

@@ -8,35 +8,37 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class PersonDao {
-	@Autowired
-	private StringRedisTemplate stringRedisTemplate;
+    private final StringRedisTemplate stringRedisTemplate;
+    private final RedisTemplate<Object, Object> redisTemplate;
 
-//	@Resource(name = "stringRedisTemplate")
-//	ValueOperations<String, String> valueOperationsString;
-
-	@Autowired
-	private RedisTemplate<Object, Object> redisTemplate;
-
-//	@Resource(name = "redisTemplate")
+    //	@Resource(name = "stringRedisTemplate")
+//	private ValueOperations<String, String> valueOperationsString;
+    //	@Resource(name = "redisTemplate")
 //	private ValueOperations<Object, Object> valueOperations;
 
-	public void stringRedisTemplateDao() {
-		stringRedisTemplate.opsForValue().set("xx", "yy");
+    @Autowired
+    public PersonDao(StringRedisTemplate stringRedisTemplate, RedisTemplate<Object, Object> redisTemplate) {
+        this.stringRedisTemplate = stringRedisTemplate;
+        this.redisTemplate = redisTemplate;
+    }
+
+    public void stringRedisTemplateDao() {
+        stringRedisTemplate.opsForValue().set("xx", "yy");
 //		valueOperationsString.set("xx", "yy");
-	}
+    }
 
-	public void save(Person person) {
-		redisTemplate.opsForValue().set(person.getId(), person);
+    public void save(Person person) {
+        redisTemplate.opsForValue().set(person.getId(), person);
 //		valueOperations.set(person.getId(), person);
-	}
+    }
 
-	public String getString() {
-		return stringRedisTemplate.opsForValue().get("xx");
+    public String getString() {
+        return stringRedisTemplate.opsForValue().get("xx");
 //		return valueOperationsString.get("xx");
-	}
+    }
 
-	public Person getPerson() {
-		return (Person) redisTemplate.opsForValue().get("1");
+    public Person getPerson() {
+        return (Person) redisTemplate.opsForValue().get("1");
 //		return (Person)valueOperations.get("1");
-	}
+    }
 }

@@ -1,0 +1,2 @@
+mvnw linguist-language=Java
+*.cmd linguist-language=Java

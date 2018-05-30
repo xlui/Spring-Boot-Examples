@@ -8,22 +8,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CacheController {
-	@Autowired
-	private PersonService personService;
+    private final PersonService personService;
 
-	@RequestMapping("/put")
-	public Person put(Person person) {
-		return personService.save(person);
-	}
+    @Autowired
+    public CacheController(PersonService personService) {
+        this.personService = personService;
+    }
 
-	@RequestMapping("/able")
-	public Person cacheable(Person person) {
-		return personService.find(person);
-	}
+    @RequestMapping("/put")
+    public Person put(Person person) {
+        return personService.save(person);
+    }
 
-	@RequestMapping("/evit")
-	public String evit(Long id) {
-		personService.remove(id);
-		return "ok";
-	}
+    @RequestMapping("/able")
+    public Person cacheable(Person person) {
+        return personService.find(person);
+    }
+
+    @RequestMapping("/evit")
+    public String evit(Long id) {
+        personService.remove(id);
+        return "ok";
+    }
 }

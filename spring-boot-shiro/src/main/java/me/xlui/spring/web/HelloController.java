@@ -18,66 +18,70 @@ import java.util.Map;
 
 @Controller
 public class HelloController {
-	@Autowired
-	private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	@RequestMapping({"/", "/index"})
-	public String index() {
-		LogUtil.getLogger().info("HelloController.index");
-		return "index";
-	}
+    @Autowired
+    public HelloController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-	/**
-	 * 访问此 url 进行密码加密存储
-	 */
-	@RequestMapping("/en")
-	@ResponseBody
-	public String encrypt() {
-		User user = userRepository.findByUsername("admin");
-		user.setSalt(user.getUsername());
-		user.setPassword((new SimpleHash("MD5", user.getPassword(), ByteSource.Util.bytes(user.getSalt()), 1024)).toString());
-		userRepository.save(user);
-		return "succ";
-	}
+    @RequestMapping({"/", "/index"})
+    public String index() {
+        LogUtil.getLogger().info("HelloController.index");
+        return "index";
+    }
 
-	@RequestMapping("/login")
-	public String login(HttpServletRequest request, Map<String, Object> map) throws Exception {
-		LogUtil.getLogger().info("HelloController.login");
-		String exception = (String) request.getAttribute("shiroLoginFailure");
-		String msg = "";
-		if (exception != null) {
-			if (UnknownAccountException.class.getName().equals(exception)) {
-				LogUtil.getLogger().info("账户不存在！");
-				msg = "账户不存在";
-			} else if (IncorrectCredentialsException.class.getName().equals(exception)) {
-				// 实际应用的时候写 "用户名或密码错误"
-				LogUtil.getLogger().info("密码不正确！");
-				msg = "密码错误";
-			} else {
-				LogUtil.getLogger().info("发生异常：" + exception);
-				msg = "其他异常";
-			}
-		}
+    /**
+     * 访问此 url 进行密码加密存储
+     */
+    @RequestMapping("/en")
+    @ResponseBody
+    public String encrypt() {
+        User user = userRepository.findByUsername("admin");
+        user.setSalt(user.getUsername());
+        user.setPassword((new SimpleHash("MD5", user.getPassword(), ByteSource.Util.bytes(user.getSalt()), 1024)).toString());
+        userRepository.save(user);
+        return "succ";
+    }
 
-		map.put("msg", msg);
-		return "login";
-	}
+    @RequestMapping("/login")
+    public String login(HttpServletRequest request, Map<String, Object> map) throws Exception {
+        LogUtil.getLogger().info("HelloController.login");
+        String exception = (String) request.getAttribute("shiroLoginFailure");
+        String msg = "";
+        if (exception != null) {
+            if (UnknownAccountException.class.getName().equals(exception)) {
+                LogUtil.getLogger().info("账户不存在！");
+                msg = "账户不存在";
+            } else if (IncorrectCredentialsException.class.getName().equals(exception)) {
+                // 实际应用的时候写 "用户名或密码错误"
+                LogUtil.getLogger().info("密码不正确！");
+                msg = "密码错误";
+            } else {
+                LogUtil.getLogger().info("发生异常：" + exception);
+                msg = "其他异常";
+            }
+        }
 
-	@RequestMapping("/userAdd")
-	@RequiresPermissions("user add")
-	public String userAdd() {
-		return "userAdd";
-	}
+        map.put("msg", msg);
+        return "login";
+    }
 
-	@RequestMapping("/userDel")
-	@RequiresPermissions("user del")
-	public String userDel() {
-		return "userDel";
-	}
+    @RequestMapping("/userAdd")
+    @RequiresPermissions("user add")
+    public String userAdd() {
+        return "userAdd";
+    }
 
-	@RequestMapping("/userInfo")
-	@RequiresPermissions("user info")
-	public String userInfo() {
-		return "userInfo";
-	}
+    @RequestMapping("/userDel")
+    @RequiresPermissions("user del")
+    public String userDel() {
+        return "userDel";
+    }
+
+    @RequestMapping("/userInfo")
+    @RequiresPermissions("user info")
+    public String userInfo() {
+        return "userInfo";
+    }
 }

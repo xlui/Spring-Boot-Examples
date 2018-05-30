@@ -10,11 +10,11 @@ import java.util.List;
 
 @RestController
 public class TagController {
-	@Autowired
-	private TagRepository tagRepository;
+    @Autowired
+    private TagRepository tagRepository;
 
-	@RequestMapping("/tags")
-	public List<Tag> all() {
-		return tagRepository.findAll();
-	}
+    @RequestMapping("/tags")
+    public List<Tag> all() {
+        return tagRepository.findAll();
+    }
 }

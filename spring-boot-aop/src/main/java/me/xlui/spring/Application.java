@@ -1,7 +1,7 @@
 package me.xlui.spring;
 
-import me.xlui.spring.service.HelloAnnotationService;
-import me.xlui.spring.service.HelloMethodService;
+import me.xlui.spring.service.AnnotationService;
+import me.xlui.spring.service.MethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,9 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 	@Autowired
-	private HelloAnnotationService helloAnnotationService;
+	private AnnotationService annotationService;
 	@Autowired
-	private HelloMethodService helloMethodService;
+	private MethodService methodService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -20,7 +20,7 @@ public class Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-		helloAnnotationService.add();
-		helloMethodService.add();
+		annotationService.add();
+		methodService.add();
 	}
 }

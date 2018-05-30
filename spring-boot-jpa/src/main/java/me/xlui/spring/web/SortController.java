@@ -10,11 +10,11 @@ import java.util.List;
 
 @RestController
 public class SortController {
-	@Autowired
-	private SortRepository sortRepository;
+    @Autowired
+    private SortRepository sortRepository;
 
-	@RequestMapping("/sorts")
-	public List<Sort> all() {
-		return sortRepository.findAll();
-	}
+    @RequestMapping("/sorts")
+    public List<Sort> all() {
+        return sortRepository.findAll();
+    }
 }

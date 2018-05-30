@@ -34,15 +34,13 @@ public class HelloMethodService {
 @Aspect
 @Component
 public class HelloServiceMonitor {
-//	@Pointcut("@annotation(me.xlui.spring.interceptor.HelloAction)")
-//	public void annotationPointCut() {}
+Actionublic void annotationPointCut() {}
 
-    @After("@annotation(me.xlui.spring.interceptor.HelloAction)")
-    public void after(JoinPoint joinPoint) {
+    @After("@annActionic void after(JoinPoint joinPoint) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        HelloAction helloAction = method.getAnnotation(HelloAction.class);
-        System.out.println("注解式拦截 " + helloAction.name());
+        HelloAction action = method.getAnnotation(HelloAction.class);
+        System.out.println("注解式拦截 " + action.name());
     }
 
     @Before("execution(* me.xlui.spring.service.HelloMethodService.*(..))")
