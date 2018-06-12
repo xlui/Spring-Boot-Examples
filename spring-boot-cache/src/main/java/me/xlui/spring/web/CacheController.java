@@ -26,7 +26,7 @@ public class CacheController {
     }
 
     @RequestMapping("/evit")
-    public String evit(Long id) {
+    public String evit(Integer id) {
         personService.remove(id);
         return "ok";
     }

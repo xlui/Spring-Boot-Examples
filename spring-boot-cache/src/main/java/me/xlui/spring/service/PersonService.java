@@ -5,7 +5,7 @@ import me.xlui.spring.entity.Person;
 public interface PersonService {
     Person save(Person person);
 
-    void remove(Long id);
+    void remove(Integer id);
 
     Person find(Person person);
 }
