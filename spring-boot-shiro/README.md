@@ -57,7 +57,7 @@ spring.jackson.serialization.indent-output=true
 ### 用户类
 
 ```java
-package me.xlui.spring.entity;
+package me.xlui.example.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -96,7 +96,7 @@ public class User implements Serializable {
 ### 角色类
 
 ```java
-package me.xlui.spring.entity;
+package me.xlui.example.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -131,7 +131,7 @@ public class Role implements Serializable {
 ### 权限类
 
 ```java
-package me.xlui.spring.entity;
+package me.xlui.example.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -187,9 +187,9 @@ INSERT INTO shiro_role_permission (permission_id, role_id) VALUES
 UserRepository:
 
 ```java
-package me.xlui.spring.repository;
+package me.xlui.example.repository;
 
-import me.xlui.spring.entity.User;
+import me.xlui.example.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -204,7 +204,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 Apache Shiro 核心通过 Filter 实现，是基于 URL 规则来进行过滤和权限校验。我们通过注入类来进行 Shiro 的配置：
 
 ```java
-package me.xlui.spring.config;
+package me.xlui.example.config;
 
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -283,13 +283,13 @@ user|配置记住我或认证可访问
 Shiro 的认证、授权最终都交给 Realm 来处理，同时在 Shiro 中，用户、角色和权限等信息也是在 Realm 中获取。我们要做的是自定义一个类，继承抽象基类 AuthorizingRealm：
 
 ```java
-package me.xlui.spring.config;
+package me.xlui.example.config;
 
-import me.xlui.spring.entity.Permission;
-import me.xlui.spring.entity.Role;
-import me.xlui.spring.entity.User;
-import me.xlui.spring.repository.UserRepository;
-import me.xlui.spring.utils.LogUtil;
+import me.xlui.example.entity.Permission;
+import me.xlui.example.entity.Role;
+import me.xlui.example.entity.User;
+import me.xlui.example.repository.UserRepository;
+import me.xlui.example.utils.LogUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -393,11 +393,11 @@ public SecurityManager securityManager() {
 ### 控制器
 
 ```java
-package me.xlui.spring.web;
+package me.xlui.example.web;
 
-import me.xlui.spring.entity.User;
-import me.xlui.spring.repository.UserRepository;
-import me.xlui.spring.utils.LogUtil;
+import me.xlui.example.entity.User;
+import me.xlui.example.repository.UserRepository;
+import me.xlui.example.utils.LogUtil;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

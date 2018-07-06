@@ -3,13 +3,14 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/xlui/Spring-Boot-Examples)
 
 
-Examples for how to use Spring Boot with some popular components.
+Examples for how to integrate Spring Boot with some popular components.
 
 ## Table of Contents
 
 - AOP
 - Cache
-- Spring Boot JPA
+- Conditional
+- JPA
 - MongoDB
 - Mybatis
 - Redis
@@ -20,7 +21,7 @@ Examples for how to use Spring Boot with some popular components.
 
 ## AOP
 
-Ioc(Inversion of Control) and AOP(Aspect-Oriented Programming) is the two core concepts in the Spring Framework, and I will use some code to show how to simply use AOP in Spring.
+IoC(Inversion of Control) and AOP(Aspect-Oriented Programming) is the two core concepts in the Spring Framework, and I will use some code to show how to simply use AOP in Spring.
 
 In the beginning, we show import `spring-boot-starter-aop`.
 
@@ -31,7 +32,7 @@ In the beginning, we show import `spring-boot-starter-aop`.
 </dependency>
 ```
 
-Spring introduce some annotations from AspectJ but the implement of AOP in Spring is **dynamic**, which is static in AspectJ. There are much ways to define aspect and in the following I have only shown two ways:
+Spring introduce some annotations from AspectJ but the implement of AOP in Spring is **dynamic proxy**, which is **static implantation** in AspectJ. There are much ways to define aspect and in the following I have only shown two ways:
 
 ```java
 @Aspect
@@ -106,6 +107,38 @@ public Person find(Person person) {
 }
 ```
 
-## Spring Boot JPA
+## Conditional
+
+`@Conditional` and the related to annotations provide a simple way to initialize Spring Bean for different conditions. Only when the condition established will spring initialize bean or do some other things. This is used widely in spring's autoconfigure package(spring-boot-autoconfigure) and is the foundation of spring boot.
+
+## JPA
 
 JPA(Java Persistence API) provides a POJO persistence model for object-relational mapping. And Spring Data JPA provides us a very easy, no-sql way to operate database.
+
+## MongoDB
+
+MongoDB is a no-sql database, which is different from MySQL. And it is very suitable for logs and applications does not need transactional much and so on. Spring Framework provides common API for operate MongoDB and MySQL.
+
+## Mybatis
+
+Mybatis is another popular relational database ORM framework. With mybatis, we can customize our sql statement, which is very important in some scene.
+
+## Redis
+
+Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries.
+
+## Security
+
+Spring Security is a authentication, authorization and permission-control framework provided by spring.
+
+## Shiro
+
+Apache Shiro is another framework do same things like Spring Security.
+
+## Starter
+
+This example shoulds how to create your own spring-boot-starter.
+
+## Swagger
+
+Swagger is a framework to provide visible API description through annotations.

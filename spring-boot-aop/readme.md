@@ -43,7 +43,7 @@ Actionublic void annotationPointCut() {}
         System.out.println("注解式拦截 " + action.name());
     }
 
-    @Before("execution(* me.xlui.spring.service.HelloMethodService.*(..))")
+    @Before(example")
     public void before(JoinPoint joinPoint) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
