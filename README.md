@@ -7,6 +7,7 @@ Examples for how to integrate Spring Boot with some popular components.
 
 ## Table of Contents
 
+- ActiveMQ
 - AOP
 - Cache
 - Conditional
@@ -18,6 +19,12 @@ Examples for how to integrate Spring Boot with some popular components.
 - Shiro
 - Starter
 - Swagger
+
+## ActiveMQ
+
+JMS(Java Message Service) enable Java application to send message across different application. JMS is based on JVM message proxy standard, and ActiveMQ is a popular implement of JMS.
+
+Not that in this example I use maven for multi-modules.
 
 ## AOP
 
