@@ -189,7 +189,7 @@ UserRepository:
 ```java
 package me.xlui.example.repository;
 
-import me.xlui.example.entity.User;
+import User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -285,11 +285,11 @@ Shiro 的认证、授权最终都交给 Realm 来处理，同时在 Shiro 中，
 ```java
 package me.xlui.example.config;
 
-import me.xlui.example.entity.Permission;
-import me.xlui.example.entity.Role;
-import me.xlui.example.entity.User;
-import me.xlui.example.repository.UserRepository;
-import me.xlui.example.utils.LogUtil;
+import Permission;
+import Role;
+import User;
+import UserRepository;
+import LogUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -395,9 +395,9 @@ public SecurityManager securityManager() {
 ```java
 package me.xlui.example.web;
 
-import me.xlui.example.entity.User;
-import me.xlui.example.repository.UserRepository;
-import me.xlui.example.utils.LogUtil;
+import User;
+import UserRepository;
+import LogUtil;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
