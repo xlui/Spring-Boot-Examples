@@ -14,6 +14,7 @@ Examples for how to integrate Spring Boot with some popular components.
 - JPA
 - MongoDB
 - Mybatis
+- RabbitMQ
 - Redis
 - Security
 - Shiro
@@ -129,6 +130,10 @@ MongoDB is a no-sql database, which is different from MySQL. And it is very suit
 ## Mybatis
 
 Mybatis is another popular relational database ORM framework. With mybatis, we can customize our sql statement, which is very important in some scene.
+
+## RabbitMQ
+
+RabbitMQ is another asynchronous message provider like JMS(ActiveMQ).
 
 ## Redis
 

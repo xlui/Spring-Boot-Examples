@@ -4,19 +4,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.xlui.example</groupId>
-    <artifactId>activemq</artifactId>
+    <artifactId>rabbitmq</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>activemq</name>
-    <description>Demo project for Spring Boot ActiveMQ</description>
+    <name>rabbitmq</name>
+    <description>Demo project for Spring Boot RabbitMQ</description>
 
     <modules>
-        <module>common</module>
+        <module>config</module>
         <module>sender</module>
         <module>receiver</module>
     </modules>
-F
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -35,7 +35,7 @@ F
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-activemq</artifactId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
                 <version>${starter.version}</version>
             </dependency>
 
@@ -56,5 +56,6 @@ F
             </plugin>
         </plugins>
     </build>
+
 
 </project>
