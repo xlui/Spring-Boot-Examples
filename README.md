@@ -2,24 +2,25 @@
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/xlui/Spring-Boot-Examples)
 
-
 Examples for how to integrate Spring Boot with some popular components.
 
 ## Table of Contents
 
-- ActiveMQ
-- AOP
-- Cache
-- Conditional
-- JPA
-- MongoDB
-- Mybatis
-- RabbitMQ
-- Redis
-- Security
-- Shiro
-- Starter
-- Swagger
+- [ActiveMQ](#activemq)
+- [AOP](#aop)
+- [Cache](#cache)
+- [Conditional](#conditional)
+- [Docker](#docker)
+- [JPA](#jpa)
+- [Kafka](#kafka)
+- [MongoDB](#mongodb)
+- [Mybatis](#mybatis)
+- [RabbitMQ](#rabbitmq)
+- [Redis](#redis)
+- [Security](#security)
+- [Shiro](#shiro)
+- [Starter](#starter)
+- [Swagger](#swagger)
 
 ## ActiveMQ
 
@@ -119,9 +120,90 @@ public Person find(Person person) {
 
 `@Conditional` and the related to annotations provide a simple way to initialize Spring Bean for different conditions. Only when the condition established will spring initialize bean or do some other things. This is used widely in spring's autoconfigure package(spring-boot-autoconfigure) and is the foundation of spring boot.
 
+## Docker
+
+Spring Boot have integrated a tomcat container as default. So when deploying spring boot applications, we just need to run:
+
+```bash
+java -jar xxxx.jar
+```
+
+We does not need to package spring boot application in `war` format, and place it under tomcat.
+
+A better way to deploy spring boot application is **docker**. Through docker, we can manage and update spring boot applications easily.
+
+For spring boot applications which use maven as build tools, there is a plugin: `docker-maven-plugin`.
+
+1. Add `docker-maven-plugin` in `pom.xml`:
+
+```xml
+<properties>
+    <docker.image.prefix>xlui</docker.image.prefix>
+</properties>
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+        <!-- Docker Maven Plugin -->
+        <plugin>
+            <groupId>com.spotify</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>1.1.1</version>
+            <!-- Run `mvn package` will also run: -->
+            <!-- `docker:removeImage` `docker:build` -->
+            <executions>
+                <execution>
+                    <id>build-image</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>removeImage</goal>
+                        <goal>build</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <!-- Image configurations -->
+            <configuration>
+                <imageName>${docker.image.prefix}/docker-example</imageName>
+                <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                <resources>
+                    <resource>
+                        <targetPath>/</targetPath>
+                        <directory>${project.build.directory}</directory>
+                        <include>${project.build.finalName}.jar</include>
+                    </resource>
+                </resources>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+2. Create `Dockerfile` under `${project.basedir}/src/main/docker`:
+
+```dockerfile
+FROM openjdk:8-jdk-alpine
+# create a temporary folder in host under /var/lib/docker and link it to /tmp in docker
+VOLUME /tmp
+ADD docker-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-Dserver.port=8080", "/app.jar"]
+```
+
+3. Build the image
+
+```bash
+sudo mvn clean package -DskipTests
+```
+
 ## JPA
 
 JPA(Java Persistence API) provides a POJO persistence model for object-relational mapping. And Spring Data JPA provides us a very easy, no-sql way to operate database.
+
+## Kafka
+
+Apache Kafka is an open-source stream-processing software platform. 
 
 ## MongoDB
 
@@ -133,11 +215,11 @@ Mybatis is another popular relational database ORM framework. With mybatis, we c
 
 ## RabbitMQ
 
-RabbitMQ is another asynchronous message provider like JMS(ActiveMQ).
+RabbitMQ is another asynchronous message provider just like JMS(ActiveMQ).
 
 ## Redis
 
-Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries.
+Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as `strings`, `hashes`, `lists`, `sets`, `sorted sets` with range queries, `bitmaps`, `hyperloglogs` and geospatial indexes with radius queries.
 
 ## Security
 
@@ -145,7 +227,7 @@ Spring Security is a authentication, authorization and permission-control framew
 
 ## Shiro
 
-Apache Shiro is another framework do same things like Spring Security.
+Apache Shiro is another security framework do same things like Spring Security.
 
 ## Starter
 
