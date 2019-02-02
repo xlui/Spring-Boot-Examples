@@ -17,6 +17,7 @@ Examples for how to integrate Spring Boot with some popular components.
 - [Mybatis](#mybatis)
 - [RabbitMQ](#rabbitmq)
 - [Redis](#redis)
+- [Schedule](#schedule)
 - [Security](#security)
 - [Shiro](#shiro)
 - [Starter](#starter)
@@ -220,6 +221,12 @@ RabbitMQ is another asynchronous message provider just like JMS(ActiveMQ).
 ## Redis
 
 Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as `strings`, `hashes`, `lists`, `sets`, `sorted sets` with range queries, `bitmaps`, `hyperloglogs` and geospatial indexes with radius queries.
+
+## Schedule
+
+Spring Schedule provide us a simple and clear way to implement cron job. What we need do is to annotate `@EnableScheduling` at a configuration class and then use `@Scheduled` upon a method to specify our cron jobs.
+
+As for example, I have created a cron job project that will notify users when they are going to expire(such as subscribing). The syntax of `@Scheduled` is clear enough in the documents so I'll not introduce it again.
 
 ## Security
 
