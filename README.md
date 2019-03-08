@@ -22,6 +22,7 @@ Examples for how to integrate Spring Boot with some popular components.
 - [Shiro](#shiro)
 - [Starter](#starter)
 - [Swagger](#swagger)
+- [Thrift](#thrift)
 
 ## ActiveMQ
 
@@ -243,3 +244,62 @@ This example shoulds how to create your own spring-boot-starter.
 ## Swagger
 
 Swagger is a framework to provide visible API description through annotations.
+
+## Thrift
+
+Thrift is a efficient, cross-language RPC framework for building microservices.
+
+In order to define the interfaces used by server and client, we need to create a interface definition(IDL) file:
+
+```thrift
+namespace java app.xlui.example.thrift.service
+
+service HelloService {
+    string sayHello(1:string username)
+    string sayBye(1:string username)
+}
+```
+
+And then generate the interface code with thrift:
+
+```bash
+thrift -out ../java/ -gen java HelloService.thrift
+```
+
+We need to abstract the interface as a common package for server and client to use. In the example code I use maven to install the `service` into local repository, `server` and `client` use maven to fetch the dependency.
+
+`server` implement the interface defined by `service`:
+
+```java
+public class HelloServiceImpl implements HelloService.Iface {
+    @Override
+    public String sayHello(String username) throws TException {
+        return "hello, " + username;
+    }
+
+    @Override
+    public String sayBye(String username) throws TException {
+        return "bye, " + username;
+    }
+}
+```
+
+and `client` call the method:
+
+```java
+HelloService.Client client = new HelloService.Client(protocol);
+
+log.info("client start");
+transport.open();
+try {
+    log.info("client say hello.");
+    log.info("server response: [" + client.sayHello("xlui") + "]");
+    log.info("client say byte.");
+    log.info("server response: [" + client.sayBye("xlui") + "]");
+} catch (TException e) {
+    e.printStackTrace();
+}
+log.info("client stop");
+```
+
+For more details, please view the source code.
